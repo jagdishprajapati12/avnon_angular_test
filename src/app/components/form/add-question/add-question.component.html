@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add a New Questions</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="getDismissReason('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <select class="form-select" aria-label="Default select example" formControlName="type" (change)="handelChangeTypes()">
+            <option>Checkbox</option>
+            <option>Textarea</option>
+        </select>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="question" aria-describedby="Question"
+              placeholder="Type question here" formControlName="question">
+        </div>
+
+        <div formArrayName="options" *ngFor="let item of options?.controls; let i = index;">
+            <div class="form-group" [formGroupName]="i">
+                <input type="text" class="form-control" id="option" aria-describedby="option"
+                  placeholder="Add Answer Option" formControlName="option">
+            </div>
+        </div>
+
+        <a class="link-primary" (click)="addOption()">Add another answer</a>
+
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="ck5" formControlName="ownAnswer">
+            <label class="custom-control-label" for="ck5">Allow user to specify their own answer</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="ck6" formControlName="required">
+            <label class="custom-control-label" for="ck6">This field is required</label>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
+</div>

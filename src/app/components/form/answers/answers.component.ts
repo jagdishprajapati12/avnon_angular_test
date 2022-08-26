@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-answers',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./answers.component.scss']
 })
 export class AnswersComponent implements OnInit {
+  @ViewChild('content') content: any;
+  closeResult: string = '';
 
+  form!: FormGroup;
   constructor() { }
 
   ngOnInit(): void {
