@@ -1,0 +1,31 @@
+.body-containner {
+    display: flex;
+    justify-content: center;
+    .form-body {
+        border: 3px solid #b5b5b5;
+        margin-top: 50px;
+        border-radius: 20px;
+        padding: 20px;
+        width: 50%;
+        .question {
+            padding: 12px;
+            font-family: 'Roboto', sans-serif;
+            ul {
+                list-style: none;
+                font-size: 14px;
+                margin: 0;
+                li {
+                    margin-top: 10px;
+                }
+            }
+            h5 {
+                font-weight: 600;
+                font-size: 16px;
+            }
+            .content {
+                padding-left: 25px;
+                font-size: 14px;
+            }
+        }
+    }
+}

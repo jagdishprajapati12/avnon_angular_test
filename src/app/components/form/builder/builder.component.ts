@@ -10,11 +10,17 @@ import { AddQuestionComponent } from '../add-question/add-question.component';
   styleUrls: ['./builder.component.scss'],
 })
 export class BuilderComponent implements OnInit {
+  
+  data : any
 
+
+
+
+  //New Code
   formData: any = [];
   form!: FormGroup; // created subject form
   questions!: FormArray;
-  data : any
+
   constructor(private fb: FormBuilder, public modalService: NgbModal ) { }
 
   ngOnInit(): void {
@@ -27,9 +33,10 @@ export class BuilderComponent implements OnInit {
     const modalRef = this.modalService.open(AddQuestionComponent);
     modalRef.result.then((result) => {
     }).catch((error) => {
-      this.formData.push(error.value)
+      this.formData.push(error)
+      console.log("error",error);
       this.questions = this.form.get('questions') as FormArray;
-      // error.reset();
+      error.reset();
       this.questions.push(error);
     });
   }
@@ -70,4 +77,17 @@ export class BuilderComponent implements OnInit {
   save() {
     console.log(this.form.value);
   }
+
+
+//   //New Code
+//   newQuestion(data: any) {
+// // textArea: null
+// // type: "Checkbox"
+//     let question = this.fb.group({
+//       ownAnswer: [data.ownAnswer, Validators.required],
+//       textArea: [data.textArea, Validators.required],
+//     })
+
+//   }
+
 }

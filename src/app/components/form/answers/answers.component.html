@@ -1,1 +1,13 @@
-<p>answers works!</p>
+<div class="body-containner">
+    <div class="form-body">
+        <div class="question" *ngFor="let question of items">
+            <h5>{{ question.question }}</h5>
+            <ul *ngIf="question.type === 'CheckBox'">
+                <li *ngFor="let option of question.option"> {{ option }} </li>
+            </ul>
+            <div class="content" *ngIf="question.type === 'TextArea'">
+                {{ question.context }}
+            </div>
+        </div>
+    </div>
+</div>

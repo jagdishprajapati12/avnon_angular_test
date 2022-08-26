@@ -51,6 +51,6 @@ export class AddQuestionComponent implements OnInit {
   }
 
   save() {
-    this.getDismissReason(this.form);
+    this.getDismissReason(this.form.value);
   }
 }
