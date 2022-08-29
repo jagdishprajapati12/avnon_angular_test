@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { StoreService } from 'src/app/services/services.service';
 
 @Component({
   selector: 'app-add-question',
@@ -9,48 +10,39 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-question.component.scss'],
 })
 export class AddQuestionComponent implements OnInit {
-  @ViewChild('content') content: any;
-  closeResult: string = '';
-
-  form!: FormGroup;
-
-  constructor(private modalService: NgbModal, public fb:FormBuilder) {}
-
-  options!: FormArray;
-
+  questionsForm!: FormGroup;
+  OptionsArray!: FormArray;
+  constructor(private modalService: NgbModal, public fb: FormBuilder, private service: StoreService) {
+  }
   ngOnInit(): void {
-    this.form = this.fb.group({
-      type: ['Checkbox', Validators.required],
-      question: [null, Validators.required],
-      required: [false],
-      ownAnswer: [false],
-      textArea: [null],
-      options: this.fb.array([])
+    this.questionsForm = new FormGroup({
+      QuestionType: new FormControl(),
+      QuestionName: new FormControl(),
+      ownAnswer : new FormControl(),
+      required : new FormControl(),
+      OptionsArray: new FormArray([])
     });
-    this.handelChangeTypes();
+    this.questionsForm.get('QuestionType')?.patchValue('Checkbox')
+    this.addNewQOption()
   }
-
-  getDismissReason(reason: any) {
-    this.modalService.dismissAll(reason);
-  }
-
-  handelChangeTypes() {
-    this.options = this.form.get('options') as FormArray;
-    this.options.clear();
-    if(this.form.value.type == 'Checkbox') {
-      this.addOption();
-    }
-  }
-
-  addOption() {
-    const formGroup = this.fb.group({
-      option: [null]
+  createQOption(): FormGroup {
+    return this.fb.group({
+      options: '',
     });
-    this.options = this.form.get('options') as FormArray;
-    this.options.push(formGroup);
   }
-
-  save() {
-    this.getDismissReason(this.form.value);
+  addNewQOption(): void {
+    this.OptionsArray = this.questionsForm.get('OptionsArray') as FormArray;
+    this.OptionsArray.push(this.createQOption());
+  }
+  onChangeQType(event: any) {
+    console.log("event", event.target.value);
+  }
+  onSave() {
+    this.modalService.dismissAll();
+    this.service.QuestionDataSubject.next(this.questionsForm.value)
+  }
+  // for questions list
+  get q() {
+    return this.OptionsArray as FormArray;
   }
 }

@@ -1,13 +1,19 @@
 <div class="body-containner">
     <div class="form-body">
-        <div class="question" *ngFor="let question of items">
-            <h5>{{ question.question }}</h5>
-            <ul *ngIf="question.type === 'CheckBox'">
-                <li *ngFor="let option of question.option"> {{ option }} </li>
-            </ul>
-            <div class="content" *ngIf="question.type === 'TextArea'">
-                {{ question.context }}
+        <ng-container *ngIf="viewCheckBoxData?.length > 0">
+            <h5> Single choice data</h5>
+            <div class="question" *ngFor="let items of viewCheckBoxData">
+                <h5>{{ items.checkBoxValues }}</h5>
+                <h5>{{ items.checkBox }}</h5>
             </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="viewTextBoxData?.length > 0">
+            <h5> Multi choice data</h5>
+            <div class="question" *ngFor="let items of viewTextBoxData">
+                <h5>{{ items.textAreaValues }}</h5>
+                <h5>{{ items.textArea }}</h5>
+            </div>
+        </ng-container>
     </div>
 </div>
+<a routerLink="/form/builder">Back to FormBuilder</a>

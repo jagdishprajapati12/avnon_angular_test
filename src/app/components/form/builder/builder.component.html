@@ -1,25 +1,32 @@
-<form [formGroup]="form" >
-    <ng-container formArrayName="questions" *ngFor="let item of questions?.controls; let i = index;">
-        <div class="form-group" [formGroupName]="i"> 
-            <div class="form-group" *ngIf="currentType(item) === 'Textarea'">
-                <label for="exampleInputEmail1">{{ questionName(item) }} <span *ngIf="required(item)">*</span></label>
-                <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="textArea"></textarea>
-            </div>
-            
-            <div *ngIf="currentType(item) === 'Checkbox'">
-                <label for="exampleInputEmail1">{{ questionName(item) }} <span *ngIf="required(item)">*</span></label>
-                <ng-container formArrayName="options" *ngFor="let option of options(item); let indexData = index;">
-                    <div class="custom-control custom-checkbox" [formGroupName]="indexData">
-                        <input type="checkbox" class="custom-control-input" [id]="optionIndex(i, indexData)" value="1" formControlName="option.controls.option">
-                        <label class="custom-control-label" [for]="optionIndex(i, indexData)">{{ languageName(option, i, indexData) }}</label>
-                        {{  opeion(option) }}
+<form [formGroup]="builderForm">
+    <div class="form-group">
+        <ng-container *ngIf="data?.QuestionType == 'Textarea'">
+            <ng-container formArrayName="textAreaArray" *ngFor="let item of textAreaArray?.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ item?.get('textAreaValues')?.value }}<span
+                                *ngIf="required == true"> *</span></label>
+                        <textarea type="text" class="form-control" aria-describedby="emailHelp"
+                            formControlName="textArea"></textarea>
                     </div>
                 </ng-container>
-            </div>
-        </div>
-    </ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="data?.QuestionType == 'Checkbox'">
+            <ng-container formArrayName="checkBoxArray" *ngFor="let item of checkBoxArray?.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                    <div class="form-group">
+                        <label for="exampleInputEmail">{{ item?.get('checkBoxValues')?.value }}<span
+                                *ngIf="required == true"> *</span></label>
+                        <textarea type="text" class="form-control" aria-describedby="emailHelp1"
+                            formControlName="checkBox"></textarea>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
     <div>
         <a class="link-primary" (click)="openModal()">Add New Question</a>
-        <button type="submit" class="btn btn-primary" (click)="save()">Review my answers ></button>
     </div>
 </form>
+<button (click)="clickSubmit()">Save</button>
