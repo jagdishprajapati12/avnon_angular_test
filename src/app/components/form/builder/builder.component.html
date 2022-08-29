@@ -1,6 +1,7 @@
 <form [formGroup]="builderForm">
     <div class="form-group">
         <ng-container *ngIf="data?.QuestionType == 'Textarea'">
+            {{data?.QuestionName}}
             <ng-container formArrayName="textAreaArray" *ngFor="let item of textAreaArray?.controls; let i = index">
                 <ng-container [formGroupName]="i">
                     <div class="form-group">
@@ -13,6 +14,7 @@
             </ng-container>
         </ng-container>
         <ng-container *ngIf="data?.QuestionType == 'Checkbox'">
+            {{data?.QuestionName}}
             <ng-container formArrayName="checkBoxArray" *ngFor="let item of checkBoxArray?.controls; let i = index">
                 <ng-container [formGroupName]="i">
                     <div class="custom-control custom-checkbox">
