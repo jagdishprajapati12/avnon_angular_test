@@ -28,10 +28,17 @@ export class BuilderComponent implements OnInit {
         this.data = resp
         this.required = this.data?.required
         this.data?.OptionsArray.map((resp: any) => {
+          console.log("resp",resp);
+          console.log("this.data?.QuestionType",this.data?.QuestionType);
+          
           if (this.data?.QuestionType == 'Textarea') {
+            console.log("in if");
+            
             this.addTextAreas(resp?.options)
           }
-          else {
+          else if(this.data?.QuestionType == 'Checkbox'){
+            console.log("else ");
+            
             this.addCheckBoxes(resp?.options)
           }
         })

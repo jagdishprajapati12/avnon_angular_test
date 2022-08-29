@@ -15,12 +15,11 @@
         <ng-container *ngIf="data?.QuestionType == 'Checkbox'">
             <ng-container formArrayName="checkBoxArray" *ngFor="let item of checkBoxArray?.controls; let i = index">
                 <ng-container [formGroupName]="i">
-                    <div class="form-group">
-                        <label for="exampleInputEmail">{{ item?.get('checkBoxValues')?.value }}<span
-                                *ngIf="required == true"> *</span></label>
-                        <textarea type="text" class="form-control" aria-describedby="emailHelp1"
-                            formControlName="checkBox"></textarea>
-                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1"  formControlName="checkBox">
+                        <label class="custom-control-label" for="customCheck1">{{ item?.get('checkBoxValues')?.value }}<span
+                            *ngIf="required == true"> *</span></label>
+                      </div>
                 </ng-container>
             </ng-container>
         </ng-container>
